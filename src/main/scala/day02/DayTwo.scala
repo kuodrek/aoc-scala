@@ -1,9 +1,6 @@
 package day02
 
 import scala.io.{BufferedSource, Source}
-import scala.util.Try
-import scala.util.matching.Regex
-import CubeGameRules.checkGame
 
 object DayTwo {
   private def PartOne(textFile: Iterator[String]): Int = {

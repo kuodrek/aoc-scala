@@ -1,6 +1,5 @@
 package day02
 
-import scala.util.Try
 import scala.util.matching.Regex
 
 case class CubeGame(game: List[String]) {
