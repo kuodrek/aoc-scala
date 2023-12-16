@@ -1,5 +1,4 @@
 package day02
-
 import scala.io.{BufferedSource, Source}
 
 object DayTwo {
