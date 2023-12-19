@@ -11,6 +11,9 @@ object DayThree {
         case sym => Symbol(sym.matched, Coordinates(sym.start, i))
       }
     }
+    val sum = engineSchematic.map {
+      case num: Number => num.value // need to check if num is in neighborhood of symbol
+    }.sum
     0
   }
   def main(args: Array[String]): Unit = {
