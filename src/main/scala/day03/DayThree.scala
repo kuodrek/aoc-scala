@@ -1,6 +1,14 @@
 package day03
 import scala.io.{BufferedSource, Source}
 import scala.util.matching.Regex
+import scala.util.matching.Regex.Match
+
+case class Coordinates(x: Int, y: Int)
+case class Symbol(value: String, coordinates: Coordinates)
+case class Number(value: Int, start: Coordinates, end: Coordinates)
+object IsInt {
+  def unapply(in: Match): Option[Int] = in.matched.toIntOption
+}
 
 object DayThree {
   private def PartOne(textFile: Iterator[String]): Int = {
