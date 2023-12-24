@@ -20,17 +20,16 @@ object IsInt {
 object DayThree {
   private def PartOne(textFile: Iterator[String]): Int = {
     val extractor: Regex = """\d+|[^.\d]""".r
-//    val text = textFile.mkString
     val engineSchematic = textFile.zipWithIndex.flatMap {
       case (line, i) => extractor.findAllMatchIn(line).map {
         case num @ IsInt(nb) => Number(nb, Coordinates(num.start, i), Coordinates(num.end - 1, i))
         case sym => Symbol(sym.matched, Coordinates(sym.start, i))
       }
     }.toArray
-    val symbols = engineSchematic.collect {
+    val symbols: Array[Symbol] = engineSchematic.collect {
       case sym: Symbol => sym
     }
-    val numbers = engineSchematic.collect {
+    val numbers: Array[Number] = engineSchematic.collect {
       case num: Number => num
     }
 
@@ -38,14 +37,43 @@ object DayThree {
       case num: Number if symbols.exists(_.checkForNumber(num)) => num.value
     }.sum
   }
+
+  private def PartTwo(textFile: Iterator[String]) : Int = {
+    val extractor: Regex = """\d+|\*""".r
+    val engineSchematic = textFile.zipWithIndex.flatMap {
+      case (line, i) => extractor.findAllMatchIn(line).map {
+        case num @ IsInt(nb) => Number(nb, Coordinates(num.start, i), Coordinates(num.end - 1, i))
+        case sym => Symbol(sym.matched, Coordinates(sym.start, i))
+      }
+    }.toArray
+    val symbols: Array[Symbol] = engineSchematic.collect {
+      case sym: Symbol => sym
+    }
+    val numbers: Array[Number] = engineSchematic.collect {
+      case num: Number => num
+    }
+
+    val numberNearAsterisks: Array[(Symbol, Int)] = for {
+      symbol: Symbol <- symbols
+      number: Number <- numbers
+      if symbol.checkForNumber(number)
+    } yield (symbol, number.value)
+    val numbersGroupedByAsterisks: Map[Symbol, Array[Int]] = numberNearAsterisks
+      .groupBy(_._1)
+      .map{
+        case (key, value) => key -> value.map(_._2)
+      }
+    numbersGroupedByAsterisks.collect {
+      case n if n._2.length == 2 => n._2.product
+    }.sum
+
+   }
+
   def main(args: Array[String]): Unit = {
-    // Get input
-    // Save in val: List[List[Char]] (each character is an element)
-    // Somehow keep track of number indexes
-    // If special character is adjacent to number, sum
     val filename: String = "./src/main/scala/day03/input/data.txt"
     val textFile: BufferedSource = Source.fromFile(filename)
-    val totalSum: Int = PartOne(textFile.getLines)
+//    val totalSum: Int = PartOne(textFile.getLines)
+    val totalSum: Int = PartTwo(textFile.getLines)
     println(totalSum)
   }
 }
