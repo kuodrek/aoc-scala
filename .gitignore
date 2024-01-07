@@ -1,3 +1,5 @@
 input/*
 input/
 data.txt
+.idea/*
+etc.sc
