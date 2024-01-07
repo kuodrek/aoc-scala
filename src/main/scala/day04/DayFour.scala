@@ -20,11 +20,12 @@ object DayFour {
       scratchGame => scratchGame.numbers.intersect(scratchGame.winningNumbers).length
     }.toVector
 
-    val result = gamesResults.zipWithIndex.foldLeft(Vector.fill(gamesLabeled.size)(1)) {
-      case (acc , (game: Int, i: Int)) =>
-      acc
+    gamesResults.zipWithIndex.foldLeft(Vector.fill(gamesResults.length)(1)) {
+      case (acc, (matches, index)) =>
+        acc.take(index + 1) ++
+          (index+1 to math.min(index+matches, gamesResults.length)).map(i => acc(i)+acc(index)) ++
+          acc.drop(index + 1 + matches)
     }.sum
-    result
   }
   def main(args: Array[String]): Unit = {
     // Get data
