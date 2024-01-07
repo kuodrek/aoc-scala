@@ -2,4 +2,8 @@ input/*
 input/
 data.txt
 .idea/*
+target/*
+project/target/
 etc.sc
+*.class
+*.log
