@@ -1,5 +1,4 @@
 package day04
-import scala.annotation.tailrec
 import scala.io.{BufferedSource, Source}
 import scala.math.pow
 
