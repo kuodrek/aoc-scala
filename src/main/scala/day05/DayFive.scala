@@ -1,13 +1,12 @@
 package day05
 import scala.io.{BufferedSource, Source}
 
-case class Seeds(Location: Vector[Long])
-case class GardenTask(Category: String, numbersMap: Vector[Vector[Long]])
+case class DestinationMap(destination: Int, source: Int, length: Int)
 
 object DayFive {
   private def PartOne(): Int = {0}
   private def PartTwo(): Int = {0}
-
+  private def SourceToDestination(source: Int, destinations: List[DestinationMap]) : Int = {0}
   def main(args: Array[String]): Unit = {
     val filename: String = "./src/main/scala/day05/input/data.txt"
     val textFile: BufferedSource = Source.fromFile(filename)
