@@ -1,5 +1,6 @@
 package day05
 import scala.io.{BufferedSource, Source}
+import scala.util.matching.Regex
 
 case class DestinationMap(destination: Int, source: Int, length: Int) {
   def CheckSourceCandidate(candidate: Int): Boolean = {
@@ -24,9 +25,13 @@ object DayFive {
   def main(args: Array[String]): Unit = {
     val filename: String = "./src/main/scala/day05/input/data.txt"
     val textFile: BufferedSource = Source.fromFile(filename)
-    val gardenData = textFile.mkString.split("\\n").toVector
+    val gardenData = textFile.mkString.split("\\n")
+
+    val extractor: Regex = "\\d+".r
     println(gardenData)
-    val seeds = "\\d+".r.findAllMatchIn(gardenData.head)
-      .flatMap(num => num.matched.toLongOption).toVector
+    val seeds = extractor.findAllMatchIn(gardenData.head)
+      .flatMap(num => num.matched.toLongOption).toList
+    val destinations = gardenData.drop(1).map(gardenMap => gardenMap.head -> extractor.findAllMatchIn(gardenMap))
+    println(destinations)
   }
 }
