@@ -1,7 +1,22 @@
 package day05
 import scala.io.{BufferedSource, Source}
 
-case class DestinationMap(destination: Int, source: Int, length: Int)
+case class DestinationMap(destination: Int, source: Int, length: Int) {
+  def CheckSourceCandidate(candidate: Int): Boolean = {
+    if (candidate >= source && source <= (source + length)) true
+    else false
+  }
+  def GetDestination(candidate: Int): Int = candidate - (source - destination)
+}
+
+def SourceToDestination(candidate: Int, destinations: List[DestinationMap]) : Int = {
+  val destination: Option[DestinationMap] = destinations.find(_.CheckSourceCandidate(candidate))
+  println(destination)
+  destination match {
+    case Some(destinationMap) => destinationMap.GetDestination(candidate)
+    case None => candidate
+  }
+}
 
 object DayFive {
   private def PartOne(): Int = {0}
