@@ -21,9 +21,6 @@ object DayFive {
     val locations: Array[Long] = humidities.map(humidity => SourceToDestination(humidity, destinations(6)))
     locations.min
   }
-  private def PartTwo(seeds: Array[Long], destinations: Array[Array[DestinationMap]]): Long = {
-    0
-  }
   private def SourceToDestination(candidate: Long, destinations: Array[DestinationMap]) : Long = {
     val destination: Option[DestinationMap] = destinations.find(_.CheckSourceCandidate(candidate))
     destination match {
@@ -56,7 +53,6 @@ object DayFive {
     }
 
     val minLocation = PartOne(seeds, destinations)
-    val minLocation2 = PartTwo(seeds, destinations)
     println(minLocation)
   }
 }
